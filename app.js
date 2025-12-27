@@ -22,7 +22,7 @@ mongoose.connection.on("error", (err) => {
 });
 app.get("/", (req, res) => {
   res.status(200).json({
-  message:"server is live 😒"  
+  message:"server is live 🟢"  
   
   });
 });
