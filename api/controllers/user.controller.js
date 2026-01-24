@@ -26,7 +26,7 @@ const login = async (req, res) => {
   try {
     const { userName, pass } = req.body
     
-    const user = await USER_MODEL.findOne({ pass });
+    const user = await USER_MODEL.findOne({ userName });
     console.log(user);
     
     if (!user) {
@@ -40,7 +40,7 @@ const login = async (req, res) => {
       res.status(200).json({
         user,
         success: true,
-        message: "welcom" + user.name
+        message: "welcom " + user.userName
       })
     }
     else {
