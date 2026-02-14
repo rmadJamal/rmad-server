@@ -25,10 +25,10 @@ const createUser = (req, res) => {
 const login = async (req, res) => {
   try {
     const { userName, pass } = req.body
-    
+
     const user = await USER_MODEL.findOne({ userName });
     console.log(user);
-    
+
     if (!user) {
       res.status(400).json({
         success: false,
@@ -58,7 +58,33 @@ const login = async (req, res) => {
   }
 }
 
+const UpdateUser = async (req, res) => {
+  try {
+    const { _id, UserUpdate } = req.body;
+    const newUser = await USER_MODEL.findOneAndUpdate(
+      { _id },
+      UserUpdate,
+      { new: true, runValidators:true, lean:true }
+    )
+    res.status(200).json({
+      success: !!newUser,
+      message: newUser?"user Updated🤣":"faild 😒",
+      newUser
+    })
+    return;
+  }
+  catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+      message: "Update Field"
+    })
+  }
+
+}
+
 module.exports = {
   createUser,
-  login
+  login,
+  UpdateUser,
 };
